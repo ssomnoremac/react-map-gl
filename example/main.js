@@ -24,14 +24,7 @@ import React, {Component} from 'react';
 import autobind from 'autobind-decorator';
 import window from 'global/window';
 
-import NotInteractiveExample from './examples/not-interactive.react';
-import ChoroplethExample from './examples/choropleth.react';
-import CustomExample from './examples/custom.react';
-import GeodataCreator from './examples/geodata-creator.react';
-import ScatterplotExample from './examples/scatterplot.react';
-import RouteExample from './examples/route.react';
-import StyleDiffingExample from './examples/style-diffing.react';
-import TiltExample from './examples/tilt.react';
+import MapGL from '../src';
 
 function getAccessToken() {
   const match = window.location.search.match(/access_token=([^&\/]*)/);
@@ -63,25 +56,20 @@ export default class App extends Component {
   }
 
   render() {
-    const common = {
-      width: 400,
-      height: 400,
-      style: {float: 'left'},
-      mapboxApiAccessToken: getAccessToken()
-    };
+    const mapboxApiAccessToken = 'pk.eyJ1Ijoic3NvbW5vcmVtYWMiLCJhIjoiY2lvcm41YTA3MDA0enUwbTRrdnhhcHozayJ9.WufHUc7poQUG8pMkMB5lNw'
+  
     return (
       <div>
-        <TiltExample
-          width={ this.state.width - 30 }
-          height={ 400 }
-          mapboxApiAccessToken={ getAccessToken() }/>
-        <RouteExample { ...common }/>
-        <ScatterplotExample { ...common }/>
-        <ChoroplethExample { ...common }/>
-        <CustomExample { ...common }/>
-        <GeodataCreator { ...common }/>
-        <NotInteractiveExample { ...common }/>
-        <StyleDiffingExample { ...common }/>
+        <MapGL
+          width={800}
+          height={500} 
+          latitude={31.6} 
+          longitude={-8}
+          zoom={6}
+          onChangeViewport={(viewport) => {
+            const {latitude, longitude, zoom} = viewport;
+          }}
+          mapboxApiAccessToken = {mapboxApiAccessToken} />
       </div>
     );
   }
