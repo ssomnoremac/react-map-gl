@@ -24,7 +24,7 @@ import React, {Component} from 'react';
 import autobind from 'autobind-decorator';
 import window from 'global/window';
 
-import MapGL from '../src';
+import Morocco from './Morocco'
 
 function getAccessToken() {
   const match = window.location.search.match(/access_token=([^&\/]*)/);
@@ -57,19 +57,15 @@ export default class App extends Component {
 
   render() {
     const mapboxApiAccessToken = 'pk.eyJ1Ijoic3NvbW5vcmVtYWMiLCJhIjoiY2lvcm41YTA3MDA0enUwbTRrdnhhcHozayJ9.WufHUc7poQUG8pMkMB5lNw'
-  
+    const common = {
+      width: 800,
+      height: 500,
+      style: {float: 'left'},
+      mapboxApiAccessToken
+    };
     return (
       <div>
-        <MapGL
-          width={800}
-          height={500} 
-          latitude={31.6} 
-          longitude={-8}
-          zoom={6}
-          onChangeViewport={(viewport) => {
-            const {latitude, longitude, zoom} = viewport;
-          }}
-          mapboxApiAccessToken = {mapboxApiAccessToken} />
+        <Morocco { ...common } />
       </div>
     );
   }
